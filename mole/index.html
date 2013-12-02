@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Whack a Mole!</title>
+</head>
+<body>
+
+<style>
+  body, img {
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  div.board {
+    position: relative;
+    z-index: 1;
+  }
+  .background {
+    opacity: .2;
+  }
+  .grassUpper {
+    position: relative;
+    z-index: -10;
+  }
+  .grassLower {
+    position: relative;
+    z-index: 10;
+  }
+  .moleContainer {
+    width: 178px;
+    overflow: hidden;
+    position: absolute;
+    top: 100px;
+    z-index: 0;
+    transition: all 1s;
+  }
+  #moleC1 {
+    left: 112px;
+  }
+  #moleC2 {
+    left: 422px;
+  }
+  #moleC3 {
+    left: 731px;
+  }
+ /* #moleC1.exposed, #moleC2.exposed, #moleC3.exposed {
+    top: 0px;
+  }
+  #moleC1.hidden, #moleC2.hidden, #moleC3.hidden {
+    top: 100px;
+  }*/
+
+/*animate keyframes for the getting hit and laughing part*/
+  @-webkit-keyframes exposed {
+    0% {top: 100px;}
+    100% {top: 0;}
+  }
+  @-webkit-keyframes hidden {
+    0% {top: 0;}
+    100% {top: 100px;}
+  }
+  @-webkit-keyframes laugh {
+    0% {left: -178px;}
+    100% {left: -712px;}
+  }
+  @-webkit-keyframes hit {
+    0% {left: -712px;}
+    100% {left: -1424px;}
+  }
+  #moleC1.exposed, #moleC2.exposed, #moleC3.exposed {
+    -webkit-animation: exposed 300ms 0ms ease 1;
+  }
+  .moleContainer.hidden {
+    -webkit-animation: hidden 300ms 0ms ease 1;
+  }
+  .moleContainer.laugh img {
+    -webkit-animation: laugh 150ms 0ms steps(3) 4 alternate;
+  }
+  .moleContainer.hit img {
+    -webkit-animation: hit 300ms 0ms steps(4) 2 alternate
+  }
+
+/*
+Make a working animation for exposed
+Make a working animation for laughing
+Make a working animation for getting hit
+Make a working animation for hidden
+
+Pop up:
+Begin playing animation to raise mole
+Listen for a click on the img
+If a click is found,
+  stop the current animation,
+  freeze the position,
+  play the hit animation,
+  on end of hit animation, play hidden animation
+If no click is found,
+  on animationend for pop up or on level configurable settimeout
+  then play hidden and laugh animations
+
+
+*/
+</style>
+
+<div class="board">
+  <div class="background">
+    <img class="grassUpper" src="data/img/foreground/grass_upper128.png" alt="Grass"/>
+    <img class="grassLower" src="data/img/foreground/grass_lower128.png" alt="Grass"/>
+  </div>
+
+  <div id="moleC1" class="moleContainer">
+    <img id="mole1" class="mole" src="data/img/sprites/mole.png" alt="mole"/>
+  </div>
+  <div id="moleC2" class="moleContainer exposed">
+    <img id="mole2" class="mole" src="data/img/sprites/mole.png" alt="mole"/>
+  </div>
+  <div id="moleC3" class="moleContainer">
+    <img id="mole3" class="mole" src="data/img/sprites/mole.png" alt="mole"/>
+  </div>
+
+  <div class="scoreboard">
+    <div class="timer"></div>
+    <div class="score"></div>
+  </div>
+</div>
+
+<<script>
+  var peek = function(moleEl) {
+    moleEl.classList.add('exposed');
+    window.setTimeout(function() {
+      if (moleEl.classList.toString().indexOf('hit') === -1) {
+        laugh(moleEl);
+      }
+      moleEl.classList.remove('exposed');
+    }, 750);
+  };
+  var hide = function(moleEl) {
+    moleEl.classList.add('hidden');
+    window.setTimeout(function() {
+      moleEl.classList.remove('hidden');
+    }, 500);
+  };
+  var laugh = function(moleEl) {
+    moleEl.classList.add('laugh');
+    window.setTimeout(function() {
+      moleEl.classList.remove('laugh');
+    }, 500);
+  };
+
+ var startDetectingHits = function(moleEl) {
+   var counter = 0;
+   function handleHit(e) {
+      var moleContEl = e.target.parentElement;
+      if (moleContEl.classList.toString().indexOf('hit') !== -1) return; //exit if the mole was just hit
+     console.log('score', ++counter);
+     moleContEl.classList.add('hit');
+      window.setTimeout(function() {
+        moleContEl.classList.remove('hit');
+      }, 850); //only moles without a class added to them surface.
+    }
+    moleEl.addEventListener('click', handleHit, false);
+  };
+
+  var popUpAMole = function() {
+    //take the moles that are not currently being animated
+  };
+
+  function init(speed) {
+    var moles = [moleC1, moleC2, moleC3];
+    moles.forEach(function(mole) {
+      startDetectingHits(mole);
+    });
+
+  }
+</script>
+</body>
+</html>
+<script>
+  /*Control all the timing functions
+    how fast is animation for popup? (set in CSS) set directly on DOM element using JS m.style.webkitTranslation
+    how fast is pause at top?  when does it start descending? (controlled by removal of exposed on setTimeOut)
+    when is laugh triggered? (time this so the animation finishes just as mole escapes or descend.duration - laugh.duration
+    how fast does it descend (set different durations for exposed vs hidden translations by converting these into animations)
+*/
+
+</script>
+
+    <!--//The way it will work is I create a transition animation for popping the head out of its hole.-->
+    <!--//A function will randomly attach a class to one of the moles which will trigger this animation.-->
+    <!--//It will also attach a timer (or animation) that will kick off the rest of the sequence..laughing and descending-->
+<!--if not clicked in time.-->
+    <!--//  It will also have to attach a click listener to check whether the mole is clicked or not.  I could bind and-->
+<!--unbind these listeners for every animation, or just leave them attached ..but I'd have to handle issues like "can't-->
+<!--get clicked more than once during a pop up etc.-->
+<!--
+
+function() {
+  molec1.classList.add('poppingUp');
+  setTimeout(function() {
+    molec1.classList.remove('poppingUp');
+    molec1.classList.add('escaping');
+}, 2000);
+}-->
