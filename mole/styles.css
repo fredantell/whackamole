@@ -1,0 +1,77 @@
+body, img {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+div.board {
+    position: relative;
+    z-index: 1;
+}
+.background {
+    opacity: .2;
+    position: relative;
+}
+.grassUpper {
+    z-index: -10;
+}
+.grassLower {
+    z-index: 10;
+}
+.moleContainer {
+    width: 178px;
+    overflow: hidden;
+    position: absolute;
+    top: 100px;
+    z-index: 0;
+}
+img.mole {
+    position: relative;
+    left: 0;
+}
+#moleC1 {
+    left: 112px;
+}
+#moleC2 {
+    left: 422px;
+}
+#moleC3 {
+    left: 731px;
+}
+
+
+
+@-webkit-keyframes laugh {
+    0% {left: -178px;}
+    100% {left: -712px;}
+}
+.moleContainer.laugh img {
+    -webkit-animation: laugh 150ms steps(3) 4 alternate;
+}
+@-webkit-keyframes hit {
+    0% {left: -712px;}
+    100% {left: -1424px;}
+}
+.moleContainer.hit img {
+    -webkit-animation: hit 150ms 0ms steps(4) 2 alternate
+}
+.moleContainer.hit {
+    -webkit-animation: rise 50ms 0ms forwards, fall 100ms 50ms forwards;
+}
+@-webkit-keyframes rise {
+    0% {top: 100px;}
+    100% {top: 0;}
+}
+.moleContainer.rise {
+    -webkit-animation: rise 1000ms 0ms forwards;
+}
+@-webkit-keyframes fallAndLaugh {
+    0% {top: 0;}
+    50% {left: -178px;}
+    100% {
+        top: 100px;
+        left: -712px;
+    }
+}
+.moleContainer.fall {
+    -webkit-animation: fallAndLaugh 1000ms 0ms forwards;
+}
