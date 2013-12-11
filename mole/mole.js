@@ -39,7 +39,6 @@ var handleMoleClick = function(e) {
 var playOuch = function(e) {
   if (! (e.animationName === 'hit')) return;
 
-
   var sfxhit = document.getElementById('sfxhit');
   if (window.chrome) {
     sfxhit.load();
@@ -47,7 +46,17 @@ var playOuch = function(e) {
   } else {
     sfxhit.play();
   }
+};
+var playLaugh = function(e) {
+  if (! (e.animationName === 'laugh')) return;
 
+  var sfxlaugh = document.getElementById('sfxlaugh');
+  if (window.chrome) {
+    sfxlaugh.load();
+    sfxlaugh.play();
+  } else {
+    sfxlaugh.play();
+  }
 };
 
 var popUpAMole = function() {
@@ -70,6 +79,11 @@ document.addEventListener('animationend', handleAnimationEnd, false);
 
 document.addEventListener('webkitAnimationStart', playOuch, false);
 document.addEventListener('animationstart', playOuch, false);
+
+//commented out because playing laughs constantly is too annoying
+//could also have generalized this into one "PlaySound" fn, but this is whackamole
+//document.addEventListener('webkitAnimationStart', playLaugh, false);
+//document.addEventListener('animationstart', playLaugh, false);
 
 window.setInterval(popUpAMole, 1200);
 
