@@ -36,6 +36,19 @@ var handleMoleClick = function(e) {
   moleContainer.className = 'moleContainer hit';
   moleContainer.removeEventListener('click', handleMoleClick, false);
 };
+var playOuch = function(e) {
+  if (! (e.animationName === 'hit')) return;
+
+
+  var sfxhit = document.getElementById('sfxhit');
+  if (window.chrome) {
+    sfxhit.load();
+    sfxhit.play();
+  } else {
+    sfxhit.play();
+  }
+
+};
 
 var popUpAMole = function() {
   var availableMoles = listAvailableMoles();
@@ -55,6 +68,8 @@ var popUpAMole = function() {
 document.addEventListener('webkitAnimationEnd', handleAnimationEnd, false);
 document.addEventListener('animationend', handleAnimationEnd, false);
 
+document.addEventListener('webkitAnimationStart', playOuch, false);
+document.addEventListener('animationstart', playOuch, false);
 
 window.setInterval(popUpAMole, 1200);
 
