@@ -3,6 +3,13 @@ body, img {
     padding: 0;
     display: block;
 }
+img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
 div.board {
     position: relative;
     z-index: 10;
@@ -52,32 +59,70 @@ img.mole {
 
 
 .moleContainer.riseFallLaugh {
-    -webkit-animation: rise 1000ms 0ms forwards, fall 1000ms 1000ms forwards;
+    -webkit-animation: rise 1500ms 0ms forwards, fall 500ms 1500ms forwards;
+    -moz-animation: rise 1500ms 0ms forwards, fall 500ms 1500ms forwards;
+    animation: rise 1500ms 0ms forwards, fall 500ms 1500ms forwards;
 }
 .moleContainer.riseFallLaugh img {
     -webkit-animation: laugh 500ms 1000ms steps(3);
+    -moz-animation: laugh 500ms 1000ms steps(3);
+    animation: laugh 500ms 1000ms steps(3);
 }
 .moleContainer.hit {
-    -webkit-animation: rise 1000ms 0ms forwards, fall 100ms 1000ms forwards;
+    -webkit-animation: rise 100ms 0ms forwards, fall 100ms 1000ms forwards;
+    -moz-animation: rise 100ms 0ms forwards, fall 100ms 1000ms forwards;
+    animation: rise 100ms 0ms forwards, fall 100ms 1000ms forwards;
 }
 .moleContainer.hit img {
     -webkit-animation: hit 350ms 0ms steps(4);
+    -moz-animation: hit 350ms 0ms steps(4);
+    animation: hit 350ms 0ms steps(4);
 }
-
 
 @-webkit-keyframes rise {
     0% {top: 100px;}
     100% {top: 0;}
 }
+@-moz-keyframes rise {
+    0% {top: 100px;}
+    100% {top: 0;}
+}
+@keyframes rise {
+    0% {top: 100px;}
+    100% {top: 0;}
+}
+
 @-webkit-keyframes fall {
     0% {top: 0;}
     100% {top: 100px;}
 }
+@-moz-keyframes fall {
+    0% {top: 0;}
+    100% {top: 100px;}
+}
+@keyframes fall {
+    0% {top: 0;}
+    100% {top: 100px;}
+}
+
 @-webkit-keyframes laugh {
     0% {left: -178px;}
     100% {left: -712px;}
+}@-moz-keyframes laugh {
+    0% {left: -178px;}
+    100% {left: -712px;}
+}@keyframes laugh {
+    0% {left: -178px;}
+    100% {left: -712px;}
 }
+
 @-webkit-keyframes hit {
+    0% {left: -712px;}
+    100% {left: -1424px;}
+}@-moz-keyframes hit {
+    0% {left: -712px;}
+    100% {left: -1424px;}
+}@keyframes hit {
     0% {left: -712px;}
     100% {left: -1424px;}
 }

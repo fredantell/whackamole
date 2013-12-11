@@ -53,6 +53,8 @@ var popUpAMole = function() {
 //whenever a mole finishes a "fall" animation, remove all of its classes
 //animation events will need to use prefixes for compatibility
 document.addEventListener('webkitAnimationEnd', handleAnimationEnd, false);
+document.addEventListener('animationend', handleAnimationEnd, false);
+
 
 window.setInterval(popUpAMole, 1200);
 
