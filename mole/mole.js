@@ -61,19 +61,25 @@
   var editCSSforMoleAnimation = function() {
     var newCSS = createCSSforMoleAnimation();
     var cssRules = document.styleSheets[0].cssRules; //I only have one stylesheet
-    var selectorText = '.moleContainer.riseFallLaugh';
+    var selectorTextv1 = '.moleContainer.riseFallLaugh';
+    var selectorTextv2 = '.riseFallLaugh.moleContainer';
     //locate the rule I'm looking for
 
     for (var i = 0; i < cssRules.length; i++) {
       var rule = cssRules[i];
-      if (rule.selectorText !== selectorText) continue;
-      if (rule.style.hasOwnProperty('MozAnimation')) {
+      if ((typeof rule.selectorText === 'undefined') ||
+          (rule.selectorText !== selectorTextv1 &&
+          rule.selectorText !== selectorTextv2)) {
+        continue;
+      }
+
+      if (rule.style.MozAnimation) {
         rule.style.MozAnimation = newCSS;
       }
-      if (rule.style.hasOwnProperty('webkitAnimation')) {
+      if (rule.style.webkitAnimation) {
         rule.style.webkitAnimation = newCSS;
       }
-      if (rule.style.hasOwnProperty('animation')) {
+      if (rule.style.animation) {
         rule.style.animation = newCSS;
       }
     }
