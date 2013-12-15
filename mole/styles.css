@@ -104,9 +104,6 @@ div.board {
     top: 100px;
     z-index: 0;
 }
-.moleContainer.riseFallLaugh {
-    cursor: pointer;
-}
 img.mole {
     position: relative;
     left: 0;
@@ -123,6 +120,7 @@ img.mole {
 
 
 .moleContainer.riseFallLaugh {
+    cursor: pointer;
     -webkit-animation: rise 1500ms 0ms forwards, fall 500ms 1500ms forwards;
     -moz-animation: rise 1500ms 0ms forwards, fall 500ms 1500ms forwards;
     animation: rise 1500ms 0ms forwards, fall 500ms 1500ms forwards;
