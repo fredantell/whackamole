@@ -3,9 +3,21 @@
 
   //array containing all moles in game
   var moles = document.querySelectorAll('.moleContainer');
-  var moleInterval;  //used to set and clear timer for moles
-  var countdownInterval;  //used to manage the countdown timer
-  var gameLevelTimings = [
+  var moleInterval;  //used to set and clear timer for mole frequency
+  var countdownInterval;  //used to set and clear the countdown timer
+  var gameVars = {
+    currentLevel: null,
+    maxLevel: this.gameLevelTimings.length - 1,
+    currentScore: function() { return parseInt(document.querySelector('.score').innerHTML, 10)},
+    maxScorePossible: function() { return parseInt(document.querySelector('.scorePossible').innerHTML, 10)},
+    endGameMsgs: [
+      'Eesh, you do know this is whack-a-mole and not miss-a-mole, right?',
+      'Steady those hands cowboy and try again',
+      'Prairie dogs everywhere fear you.  Perhaps with another try you can get that elusive perfect score..',
+      'Perfect Score!  Chuck Norris?  Is that you??'
+    ]
+  };
+  gameVars.gameLevelTimings = [
     {
       moleInterval: 2000,
       lengthOfRound: 5,
@@ -34,22 +46,10 @@
       fallDuration: 100
     }
   ];
-  var gameVars = {
-    currentLevel: null,
-    maxLevel: gameLevelTimings.length - 1,
-    currentScore: function() { return parseInt(document.querySelector('.score').innerHTML, 10)},
-    maxScorePossible: function() { return parseInt(document.querySelector('.scorePossible').innerHTML, 10)},
-    endGameMsgs: [
-      'Eesh, you do know this is whack-a-mole and not miss-a-mole, right?',
-      'Steady those hands cowboy and try again',
-      'Prairie dogs everywhere fear you.  Perhaps with another try you can get that elusive perfect score..',
-      'Perfect Score!  Chuck Norris?  Is that you??'
-    ]
-  };
 
   var createCSSforMoleAnimation = function() {
-    var riseDuration = gameLevelTimings[gameVars.currentLevel].riseDuration + '';
-    var fallDuration = gameLevelTimings[gameVars.currentLevel].fallDuration + '';
+    var riseDuration = gameVars.gameLevelTimings[gameVars.currentLevel].riseDuration + '';
+    var fallDuration = gameVars.gameLevelTimings[gameVars.currentLevel].fallDuration + '';
 
     var tmpl = 'rise {{riseDuration}}ms 0ms forwards, fall {{fallDuration}}ms {{riseDuration}}ms forwards';
 
@@ -61,8 +61,8 @@
   var editCSSforMoleAnimation = function() {
     var newCSS = createCSSforMoleAnimation();
     var cssRules = document.styleSheets[0].cssRules; //I only have one stylesheet
-    var selectorTextv1 = '.moleContainer.riseFallLaugh';
-    var selectorTextv2 = '.riseFallLaugh.moleContainer';
+    var selectorTextv1 = '.moleContainer.riseFallLaugh'; // IE and Chrome display selector text differently
+    var selectorTextv2 = '.riseFallLaugh.moleContainer'; // IE and Chrome display selector text differently
     //locate the rule I'm looking for
 
     for (var i = 0; i < cssRules.length; i++) {
@@ -100,11 +100,10 @@
 
   var handleAnimationEnd = function(e) {
     if (e.animationName === 'fall') {
-      e.target.className = 'moleContainer';
+      e.target.className = 'moleContainer'; //remove any other animation related classnames to just leave the original moleContainer
     }
-    /*this will remove the click handler after the fall animation. The handler would have already been removed if the mole was hit in order to prevent people clicking the same mole multiple times.    We remove it again here too in the case of a miss.  We want to prevent endlessly registering click handlers as the game progresses.*/
+    /*this will remove the click handler after the fall animation. The handler would have already been removed if the mole was hit in order to prevent people clicking the same mole multiple times.    We try to remove it again here too in the case of a miss. */
     e.target.removeEventListener('click', handleMoleClick, false);
-
   };
 
   var handleMoleClick = function(e) {
@@ -117,7 +116,7 @@
     var moleContainer = e.target.parentNode;
     var scoreEl = document.querySelector('.score');
     var newScore = parseInt(scoreEl.innerHTML, 10) + 1;
-    moleContainer.className = 'moleContainer hit';
+    moleContainer.className = 'moleContainer hit';  //trigger hit animation
     moleContainer.removeEventListener('click', handleMoleClick, false);
 
     scoreEl.innerHTML = newScore < 10 ? '0' + newScore : newScore;
@@ -189,7 +188,7 @@
     }
   };
   var issueNextLevelMessage = function() {
-    createOverlay(gameLevelTimings[gameVars.currentLevel].outroMsg);
+    createOverlay(gameVars.gameLevelTimings[gameVars.currentLevel].outroMsg);
     createActionButton('I\'m ready!', newRoundEventHandler);
   };
   var issueEndOfGameMessage = function() {
@@ -255,13 +254,13 @@
   };
   var newRound = function(level) {
     if (typeof level !== 'number' ||
-        level > gameLevelTimings.length) {
+        level > gameVars.gameLevelTimings.length) {
       return console.log('invalid level');
     }
 
     gameVars.currentLevel = level;  //0-indexed
-    var speed = gameLevelTimings[level].moleInterval;
-    var time = gameLevelTimings[level].lengthOfRound;
+    var speed = gameVars.gameLevelTimings[level].moleInterval;
+    var time = gameVars.gameLevelTimings[level].lengthOfRound;
     editCSSforMoleAnimation();
 
     countdown(time);
@@ -269,6 +268,7 @@
     moleInterval = window.setInterval(popUpAMole, speed);
   };
 
+  //start the game
   newRound(0);
 
 })();
