@@ -5,19 +5,7 @@
   var moles = document.querySelectorAll('.moleContainer');
   var moleInterval;  //used to set and clear timer for mole frequency
   var countdownInterval;  //used to set and clear the countdown timer
-  var gameVars = {
-    currentLevel: null,
-    maxLevel: this.gameLevelTimings.length - 1,
-    currentScore: function() { return parseInt(document.querySelector('.score').innerHTML, 10)},
-    maxScorePossible: function() { return parseInt(document.querySelector('.scorePossible').innerHTML, 10)},
-    endGameMsgs: [
-      'Eesh, you do know this is whack-a-mole and not miss-a-mole, right?',
-      'Steady those hands cowboy and try again',
-      'Prairie dogs everywhere fear you.  Perhaps with another try you can get that elusive perfect score..',
-      'Perfect Score!  Chuck Norris?  Is that you??'
-    ]
-  };
-  gameVars.gameLevelTimings = [
+  var gameLevelTimings = [
     {
       moleInterval: 2000,
       lengthOfRound: 5,
@@ -46,10 +34,22 @@
       fallDuration: 100
     }
   ];
+  var gameVars = {
+    currentLevel: null,
+    maxLevel: gameLevelTimings.length - 1,
+    currentScore: function() { return parseInt(document.querySelector('.score').innerHTML, 10)},
+    maxScorePossible: function() { return parseInt(document.querySelector('.scorePossible').innerHTML, 10)},
+    endGameMsgs: [
+      'Eesh, you do know this is whack-a-mole and not miss-a-mole, right?',
+      'Steady those hands cowboy and try again',
+      'Prairie dogs everywhere fear you.  Perhaps with another try you can get that elusive perfect score..',
+      'Perfect Score!  Chuck Norris?  Is that you??'
+    ]
+  };
 
   var createCSSforMoleAnimation = function() {
-    var riseDuration = gameVars.gameLevelTimings[gameVars.currentLevel].riseDuration + '';
-    var fallDuration = gameVars.gameLevelTimings[gameVars.currentLevel].fallDuration + '';
+    var riseDuration = gameLevelTimings[gameVars.currentLevel].riseDuration + '';
+    var fallDuration = gameLevelTimings[gameVars.currentLevel].fallDuration + '';
 
     var tmpl = 'rise {{riseDuration}}ms 0ms forwards, fall {{fallDuration}}ms {{riseDuration}}ms forwards';
 
@@ -188,7 +188,7 @@
     }
   };
   var issueNextLevelMessage = function() {
-    createOverlay(gameVars.gameLevelTimings[gameVars.currentLevel].outroMsg);
+    createOverlay(gameLevelTimings[gameVars.currentLevel].outroMsg);
     createActionButton('I\'m ready!', newRoundEventHandler);
   };
   var issueEndOfGameMessage = function() {
@@ -254,13 +254,13 @@
   };
   var newRound = function(level) {
     if (typeof level !== 'number' ||
-        level > gameVars.gameLevelTimings.length) {
+        level > gameLevelTimings.length) {
       return console.log('invalid level');
     }
 
     gameVars.currentLevel = level;  //0-indexed
-    var speed = gameVars.gameLevelTimings[level].moleInterval;
-    var time = gameVars.gameLevelTimings[level].lengthOfRound;
+    var speed = gameLevelTimings[level].moleInterval;
+    var time = gameLevelTimings[level].lengthOfRound;
     editCSSforMoleAnimation();
 
     countdown(time);
