@@ -100,7 +100,7 @@
 
   var handleAnimationEnd = function(e) {
     if (e.animationName === 'fall') {
-      e.target.className = 'moleContainer'; //remove any other animation related classnames to just leave the original moleContainer
+      e.target.className = 'moleContainer'; //remove any animation related classnames to just leave the original moleContainer
     }
     /*this will remove the click handler after the fall animation. The handler would have already been removed if the mole was hit in order to prevent people clicking the same mole multiple times.    We try to remove it again here too in the case of a miss. */
     e.target.removeEventListener('click', handleMoleClick, false);
@@ -150,7 +150,7 @@
 
   var popUpAMole = function() {
 
-    var availableMoles = listAvailableMoles();
+    var availableMoles = listAvailableMoles();  //return a list of moles not currently being animated
     if (availableMoles.length === 0) return;
 
     var randomMole = availableMoles[Math.floor(Math.random() * availableMoles.length)];
@@ -180,6 +180,8 @@
     window.clearInterval(countdownInterval);
     window.clearInterval(moleInterval);
 
+    //following code quits game if level is last level or player's score is too low
+    //otherwise player progresses to the next level
     if (gameVars.currentLevel === gameVars.maxLevel ||
         (gameVars.currentScore() / gameVars.maxScorePossible()) <= (gameVars.currentLevel / gameVars.maxLevel)) {
       window.setTimeout(issueEndOfGameMessage, 2000);  //slight delay in case of ongoing animations
@@ -224,7 +226,7 @@
     overlay.appendChild(msg);
   };
   var removeOverlay = function() {
-    //remove overlay if present
+    //remove overlay and replay/actionButton if present
     var overlayEl = document.querySelector('#overlay');
     var replayEl = document.querySelector('#replay');
     overlayEl && overlayEl.parentNode.removeChild(overlayEl);
@@ -235,18 +237,6 @@
     resetScoreboard();
     newRound(0);
   };
-  //whenever a mole finishes a "fall" animation, remove all of its classes
-  //animation events will need to use prefixes for compatibility
-  document.addEventListener('webkitAnimationEnd', handleAnimationEnd, false);
-  document.addEventListener('animationend', handleAnimationEnd, false);
-
-  document.addEventListener('webkitAnimationStart', playOuch, false);
-  document.addEventListener('animationstart', playOuch, false);
-
-  //commented out because playing laughs constantly is too annoying
-  //could also have generalized this into one "PlaySound" fn, but this is whackamole
-  //document.addEventListener('webkitAnimationStart', playLaugh, false);
-  //document.addEventListener('animationstart', playLaugh, false);
 
   var newRoundEventHandler = function(e) {
     removeOverlay();
@@ -268,8 +258,23 @@
     moleInterval = window.setInterval(popUpAMole, speed);
   };
 
-  //start the game
-  newRound(0);
+  (function init() {
+    //whenever a mole finishes a "fall" animation, remove all of its classes
+    //animation events will need to use prefixes for compatibility
+    document.addEventListener('webkitAnimationEnd', handleAnimationEnd, false);
+    document.addEventListener('animationend', handleAnimationEnd, false);
+
+    document.addEventListener('webkitAnimationStart', playOuch, false);
+    document.addEventListener('animationstart', playOuch, false);
+
+    //commented out because playing laughs constantly is too annoying
+    //could also have generalized this into one "PlaySound" fn, but this is whackamole
+    //document.addEventListener('webkitAnimationStart', playLaugh, false);
+    //document.addEventListener('animationstart', playLaugh, false);
+
+    //start the game
+    newRound(0);
+  })();
 
 })();
 

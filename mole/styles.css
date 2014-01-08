@@ -29,7 +29,33 @@ div.board {
     position: absolute;
     z-index: 1;
     top: 0;
+
+    -webkit-animation: fadeIn 500ms 0ms;
+    -o-animation: fadeIn 500ms 0ms;
+    animation: fadeIn 500ms 0ms;
 }
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0.0;}
+    to   {opacity: 0.9;}
+}
+
+@-o-keyframes fadeIn {
+    from {opacity: 0.0;}
+    to   {opacity: 0.9;}
+}
+
+@-moz-keyframes fadeIn {
+    from {opacity: 0.0;}
+    to   {opacity: 0.9;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0.0;}
+    to   {opacity: 0.9;}
+
+}
+
 #msg {
     position: absolute;
     margin: auto;
