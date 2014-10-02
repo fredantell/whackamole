@@ -1,4 +1,4 @@
-whackamole
+Whackamole
 ==========
 
 This game can be played at fredantell.github.io/whackamole/mole
