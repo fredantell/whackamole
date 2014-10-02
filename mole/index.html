@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+</head>
+<body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Whack a Mole!</title>
+  <link rel="stylesheet" type="text/css"  href="styles.css">
+</head>
+<body>
+<div class="board">
+  <div class="background">
+    <img class="grassUpper" draggable="false" src="data/img/foreground/grass_upper128.png" alt="Grass"/>
+    <img class="grassLower" draggable="false" src="data/img/foreground/grass_lower128.png" alt="Grass"/>
+    <img class="dirt" draggable="false" src="data/img/background/bg_dirt128.png" alt="Dirt"/>
+  </div>
+
+  <div id="moleC1" class="moleContainer">
+    <img id="mole1" class="mole" draggable="false" src="data/img/sprites/mole.png" alt="mole"/>
+  </div>
+  <div id="moleC2" class="moleContainer">
+    <img id="mole2" class="mole" draggable="false" src="data/img/sprites/mole.png" alt="mole"/>
+  </div>
+  <div id="moleC3" class="moleContainer">
+    <img id="mole3" class="mole" draggable="false" src="data/img/sprites/mole.png" alt="mole"/>
+  </div>
+</div>
+
+<div id="scoreboard">
+  <div class="scoreContainer">
+    <div>time: </div>
+    <div class="timer">--</div>
+    <div>score:</div>
+    <div class="score">00</div>
+    <div class="outOf">/</div>
+    <div class="scorePossible">00</div>
+  </div>
+</div>
+
+<audio id="bgmusic" src="data/bgm/whack.mp3" type="audio/mp3"></audio>
+<audio id="sfxhit" src="data/sfx/ow.mp3" type="audio/mp3"></audio>
+<audio id="sfxlaugh" src="data/sfx/laugh.mp3" type="audio/mp3"></audio>
+
+<script src="mole.js"></script>
+</body>
+</html>
+</body>
+</html>

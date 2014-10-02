@@ -1,0 +1,216 @@
+@font-face {
+    font-family: 'Scoreboard';
+    src: url('data/font/scoreboard.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+body, img {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+div.board {
+    position: relative;
+    z-index: 10;
+    height: 256px;
+    width: 1024px;
+    overflow: hidden;
+}
+#overlay {
+    background: rgba(0,0,0,0.9);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+
+    -webkit-animation: fadeIn 500ms 0ms;
+    -o-animation: fadeIn 500ms 0ms;
+    animation: fadeIn 500ms 0ms;
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0.0;}
+    to   {opacity: 0.9;}
+}
+
+@-o-keyframes fadeIn {
+    from {opacity: 0.0;}
+    to   {opacity: 0.9;}
+}
+
+@-moz-keyframes fadeIn {
+    from {opacity: 0.0;}
+    to   {opacity: 0.9;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0.0;}
+    to   {opacity: 0.9;}
+
+}
+
+#msg {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    width: 512px;
+    height: 56px;
+    font-size: 32px;
+    text-align: center;
+}
+#replay {
+    width: 150px;
+    height: 30px;
+    border: 1px solid black;
+    background: rgb(0, 175, 0);
+    font-size: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: auto;
+    line-height: 30px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+}
+#scoreboard {
+    background: #222;
+    width: 1024px;
+    height: 40px;
+    position: relative;
+}
+.scoreContainer {
+    float: right;
+}
+.scoreContainer div {
+    float: left;
+    font-size: 40px;
+    color: red;
+    font-family: 'Scoreboard';
+}
+.timer, .scorePossible {
+    margin-right: 20px;
+}
+
+.background {
+    opacity: 1;
+    position: relative;
+}
+.grassUpper {
+    z-index: 0;
+    position: relative;
+}
+.grassLower {
+    z-index: 1;
+    position: relative;
+}
+.dirt {
+    position: absolute;
+    top: 50px;
+    z-index: -1;
+}
+.moleContainer {
+    width: 178px;
+    overflow: hidden;
+    position: absolute;
+    top: 100px;
+    z-index: 0;
+}
+img.mole {
+    position: relative;
+    left: 0;
+}
+#moleC1 {
+    left: 112px;
+}
+#moleC2 {
+    left: 422px;
+}
+#moleC3 {
+    left: 731px;
+}
+
+
+.moleContainer.riseFallLaugh {
+    cursor: pointer;
+    -webkit-animation: rise 1500ms 0ms forwards, fall 500ms 1500ms forwards;
+    -moz-animation: rise 1500ms 0ms forwards, fall 500ms 1500ms forwards;
+    animation: rise 1500ms 0ms forwards, fall 500ms 1500ms forwards;
+}
+.moleContainer.riseFallLaugh img {
+    -webkit-animation: laugh 500ms 1000ms steps(3);
+    -moz-animation: laugh 500ms 1000ms steps(3);
+    animation: laugh 500ms 1000ms steps(3);
+}
+.moleContainer.hit {
+    -webkit-animation: rise 100ms 0ms forwards, fall 100ms 1000ms forwards;
+    -moz-animation: rise 100ms 0ms forwards, fall 100ms 1000ms forwards;
+    animation: rise 100ms 0ms forwards, fall 100ms 1000ms forwards;
+}
+.moleContainer.hit img {
+    -webkit-animation: hit 350ms 0ms steps(4);
+    -moz-animation: hit 350ms 0ms steps(4);
+    animation: hit 350ms 0ms steps(4);
+}
+
+@-webkit-keyframes rise {
+    0% {top: 100px;}
+    100% {top: 0;}
+}
+@-moz-keyframes rise {
+    0% {top: 100px;}
+    100% {top: 0;}
+}
+@keyframes rise {
+    0% {top: 100px;}
+    100% {top: 0;}
+}
+
+@-webkit-keyframes fall {
+    0% {top: 0;}
+    100% {top: 100px;}
+}
+@-moz-keyframes fall {
+    0% {top: 0;}
+    100% {top: 100px;}
+}
+@keyframes fall {
+    0% {top: 0;}
+    100% {top: 100px;}
+}
+
+@-webkit-keyframes laugh {
+    0% {left: -178px;}
+    100% {left: -712px;}
+}@-moz-keyframes laugh {
+    0% {left: -178px;}
+    100% {left: -712px;}
+}@keyframes laugh {
+    0% {left: -178px;}
+    100% {left: -712px;}
+}
+
+@-webkit-keyframes hit {
+    0% {left: -712px;}
+    100% {left: -1424px;}
+}@-moz-keyframes hit {
+    0% {left: -712px;}
+    100% {left: -1424px;}
+}@keyframes hit {
+    0% {left: -712px;}
+    100% {left: -1424px;}
+}
