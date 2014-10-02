@@ -1,7 +1,7 @@
 Whackamole
 ==========
 
-This game can be played at fredantell.github.io/whackamole/mole
+This game can be played [here]([fredantell.github.io/whackamole/mole)
 
 I wrote this late 2013 and looking back there is quite a bit I would change.
 
