@@ -15,6 +15,7 @@ It seems like I originally built reasonably small functions, but they reference 
 It's up to the programmer to keep in mind what all the moving pieces are.  It would be interesting to transition 
 this to a more functional style that receives the current game state and computes the next game state.
 
-Rendering is being handled by reaching into the DOM and using JS to edit the stylesheets.  It may have been easier
-in the end to just use JS to handle the animations.  However, part of the learning exercise for me at the time was 
-using CSS animations instead.
+The mole's movement is being handled by CSS Animations.  Since each level has moles that behave differently, these CSS rules are being changed by using JS to reaching into the DOM and edit the stylesheets.  It may have been easier
+in the end to just use JS to handle the animations directly by setting properties on the moles.  It would also have
+the benefit of pulling the mole's position into the game state data and consolidating more of the game's behavior in
+a single place. However, part of the learning exercise for me at the time was using CSS animations instead.
